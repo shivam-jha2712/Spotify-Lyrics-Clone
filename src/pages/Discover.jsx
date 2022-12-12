@@ -1,9 +1,25 @@
+// Using Special Properties and  functions from React Redux Tool kit as for importing the Dispatch values of all the songs listed under.
+import { useDispatch, useSelector } from 'react-redux';
+
+
 import { Error, Loader, SongCard } from '../components';
 import { genres } from '../assets/constants';
+import { useGetTopChartsQuery } from '../redux/services/shazamCore';
 
+// Now how does redux works it is like a huge round Cake and the cake can have slices like it ca have a Slice for Music Player Functionality and a Slice for Shazam Core Functionality and in that even which category whetehr needs to be selected is determined by the useSelector  function.
 
 const Discover = () => {
-    console.log(genres);
+    const dispatch = useDispatch();
+
+
+    const { activeSong, isPlaying } = useSelector((state) => state.player);
+    const { data, isFetching, error } = useGetTopChartsQuery();
+    // This is going to spit out three different things 
+    const genreTitle = 'Pop';
+
+    if (isFetching) return <Loader title="Loading songs..." />;
+
+    if (error) return <Error />;
 
     {/* tailwindcss is very useful as it helped us to set the CSS in one line only by sm:flex row means on small devices it would flex-row else it would be column */ }
 
@@ -23,12 +39,16 @@ const Discover = () => {
 
             <div
                 className="flex flex-wrap sm:justify-start justify-center gap-8">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((song, i) => (
+                {data?.map((song, i) => (
                     <SongCard
                         key={song.key}
                         song={song}
+                        isPlaying={isPlaying}
+                        activeSong={activeSong}
+                        data={data}
                         i={i}
                     />
+                    // This is having being fetched from the features list and is having all the data in it of is playing and all. And all the properties passed in here would be used from the SongCard Compnent of it.
                 ))}
             </div>
         </div>
