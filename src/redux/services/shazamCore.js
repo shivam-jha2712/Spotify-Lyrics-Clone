@@ -15,12 +15,16 @@ export const shazamCoreApi = createApi({
     }),
     endpoints: (builder) => ({
         getTopCharts: builder.query({ query: () => '/charts/world' }),
+        getSongDetails: builder.query({ query: ({ songid }) => `/tracks/details?track_id=${songid}` }),
+        getSongRelated: builder.query({ query: ({ songid }) => `/tracks/related?track_id=${songid}` }),
     }),
 });
 
 // Note that Redux allows us to call this query of getTopCharts as a hook
 export const {
     useGetTopChartsQuery,
+    useGetSongDetailsQuery,
+    useGetSongRelatedQuery,
 } = shazamCoreApi;
 
     // The procees of getting a hold of this api thing is via the help of all the things we have learnt so far using Shazam API of the Rapid API things we use include:
