@@ -13,19 +13,43 @@ export const shazamCoreApi = createApi({
             return headers;
         },
     }),
+
     endpoints: (builder) => ({
         getTopCharts: builder.query({ query: () => '/charts/world' }),
+        getSongsByGenre: builder.query({ query: (genre) => `/charts/genre-world?genre_code=${genre}` }),
+        getSongsByCountry: builder.query({ query: (countryCode) => `/charts/country?country_code=${countryCode}` }),
+        getSongsBySearch: builder.query({ query: (searchTerm) => `/search/multi?search_type=SONGS_ARTISTS&query=${searchTerm}` }),
+        getArtistDetails: builder.query({ query: (artistId) => `/artists/details?artist_id=${artistId}` }),
         getSongDetails: builder.query({ query: ({ songid }) => `/tracks/details?track_id=${songid}` }),
         getSongRelated: builder.query({ query: ({ songid }) => `/tracks/related?track_id=${songid}` }),
     }),
 });
 
-// Note that Redux allows us to call this query of getTopCharts as a hook
 export const {
     useGetTopChartsQuery,
+    useGetSongsByGenreQuery,
+    useGetSongsByCountryQuery,
+    useGetSongsBySearchQuery,
+    useGetArtistDetailsQuery,
     useGetSongDetailsQuery,
     useGetSongRelatedQuery,
 } = shazamCoreApi;
+
+//     endpoints: (builder) => ({
+//         getTopCharts: builder.query({ query: () => '/charts/world' }),
+//         getSongDetails: builder.query({ query: ({ songid }) => `/tracks/details?track_id=${songid}` }),
+//         getSongRelated: builder.query({ query: ({ songid }) => `/tracks/related?track_id=${songid}` }),
+//         getArtistDetails: builder.query({ query: (artistId) => `/artists/details?artist_id=${artistId}` }),
+//     }),
+// });
+
+// // Note that Redux allows us to call this query of getTopCharts as a hook
+// export const {
+//     useGetTopChartsQuery,
+//     useGetSongDetailsQuery,
+//     useGetSongRelatedQuery,
+//     useGetArtistDetailsQuery,
+// } = shazamCoreApi;
 
     // The procees of getting a hold of this api thing is via the help of all the things we have learnt so far using Shazam API of the Rapid API things we use include:
     // Request: https:// (url)
@@ -43,23 +67,4 @@ export const {
 //             return headers;
 //         },
 //     }),
-//     endpoints: (builder) => ({
-//         getTopCharts: builder.query({ query: () => '/charts/world' }),
-//         getSongsByGenre: builder.query({ query: (genre) => `/charts/genre-world?genre_code=${genre}` }),
-//         getSongsByCountry: builder.query({ query: (countryCode) => `/charts/country?country_code=${countryCode}` }),
-//         getSongsBySearch: builder.query({ query: (searchTerm) => `/search/multi?search_type=SONGS_ARTISTS&query=${searchTerm}` }),
-//         getArtistDetails: builder.query({ query: (artistId) => `/artists/details?artist_id=${artistId}` }),
-//         getSongDetails: builder.query({ query: ({ songid }) => `/tracks/details?track_id=${songid}` }),
-//         getSongRelated: builder.query({ query: ({ songid }) => `/tracks/related?track_id=${songid}` }),
-//     }),
-// });
-
-// export const {
-//     useGetTopChartsQuery,
-//     useGetSongsByGenreQuery,
-//     useGetSongsByCountryQuery,
-//     useGetSongsBySearchQuery,
-//     useGetArtistDetailsQuery,
-//     useGetSongDetailsQuery,
-//     useGetSongRelatedQuery,
-// } = shazamCoreApi;
+//     
