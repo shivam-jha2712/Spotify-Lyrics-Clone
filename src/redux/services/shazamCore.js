@@ -6,22 +6,23 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const shazamCoreApi = createApi({
     reducerPath: 'shazamCoreApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://shazam-core.p.rapidapi.com/v1',
+        baseUrl: 'https://shazam-core.p.rapidapi.com/',
         prepareHeaders: (headers) => {
-            headers.set('X-RapidAPI-Key', 'de786d1714msh6e01f1c27e8f064p1f6abbjsn8672dcf38917');
+            headers.set('X-RapidAPI-Key', '1c00e11c7amsh2b0dd71641a71a3p1dde1fjsn0a37fa62479e');
+            // headers.set('X-RapidAPI-Key', 'de786d1714msh6e01f1c27e8f064p1f6abbjsn8672dcf38917');
 
             return headers;
         },
     }),
 
     endpoints: (builder) => ({
-        getTopCharts: builder.query({ query: () => '/charts/world' }),
-        getSongsByGenre: builder.query({ query: (genre) => `/charts/genre-world?genre_code=${genre}` }),
-        getSongsByCountry: builder.query({ query: (countryCode) => `/charts/country?country_code=${countryCode}` }),
-        getSongsBySearch: builder.query({ query: (searchTerm) => `/search/multi?search_type=SONGS_ARTISTS&query=${searchTerm}` }),
+        getTopCharts: builder.query({ query: () => '/v1/charts/world' }),
+        getSongsByGenre: builder.query({ query: (genre) => `/v1/charts/genre-world?genre_code=${genre}` }),
+        getSongsByCountry: builder.query({ query: (countryCode) => `/v1/charts/country?country_code=${countryCode}` }),
+        getSongsBySearch: builder.query({ query: (searchTerm) => `/v1/search/multi?search_type=SONGS_ARTISTS&query=${searchTerm}` }),
         getArtistDetails: builder.query({ query: (artistId) => `/v2/artists/details?artist_id=${artistId}` }),
-        getSongDetails: builder.query({ query: ({ songid }) => `/tracks/details?track_id=${songid}` }),
-        getSongRelated: builder.query({ query: ({ songid }) => `/tracks/related?track_id=${songid}` }),
+        getSongDetails: builder.query({ query: ({ songid }) => `/v1/tracks/details?track_id=${songid}` }),
+        getSongRelated: builder.query({ query: ({ songid }) => `/v1/tracks/related?track_id=${songid}` }),
     }),
 });
 
