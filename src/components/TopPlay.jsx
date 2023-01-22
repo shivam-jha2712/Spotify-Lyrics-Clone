@@ -117,7 +117,7 @@ const TopPlay = () => {
               animate-slideright"
             >
               <Link to={`/artists/${song[0]?.artists[0].adamid}`}>
-                <img src={song[0]?.images.background} alt="name"
+                <img src={song?.images.background} alt="name"
                   className="rounded-full w-full object-cover" />
               </Link>
             </SwiperSlide>
